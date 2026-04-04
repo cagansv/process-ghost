@@ -1,9 +1,9 @@
 import os
 import sys
 import argparse
+from utils import find_pids_by_name
 
 def check_root():
-    """Programın root yetkisiyle çalışıp çalışmadığını kontrol eder."""
     if os.geteuid() != 0:
         print("[-] Hata: Bu işlem için root (sudo) yetkisi gereklidir!")
         sys.exit(1)
@@ -18,12 +18,21 @@ def main():
 
     args = parser.parse_args()
 
-    if not args.pid and not args.name:
+    target_pids = []
+
+    if args.pid:
+        target_pids.append(args.pid)
+    elif args.name:
+        target_pids = find_pids_by_name(args.name)
+        if not target_pids:
+            print(f"[-] Hata: '{args.name}' adında bir işlem bulunamadı.")
+            sys.exit(1)
+    else:
         parser.print_help()
         sys.exit(0)
 
-    print("[+] Process-Ghost başlatıldı...")
-    # Sonraki adımlar buraya gelecek
+    for pid in target_pids:
+        print(f"[+] Hedef PID belirlendi: {pid}")
 
 if __name__ == "__main__":
     main()
