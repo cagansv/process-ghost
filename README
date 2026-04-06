@@ -1,15 +1,15 @@
-# Process-Ghost v1.0 👻
+# Process-Ghost v1.0 
 A Linux post-exploitation tool for process hiding using mount bind techniques.
 
-## 🚀 Features
+## Features
 - Stealthy process hiding from `ps`, `htop`, and `top`.
 - Modern GUI built with CustomTkinter.
 - Bypass process monitoring via `/proc` filesystem manipulation.
 
-## 🛠 Installation
+## Installation
 1. Clone the repo: `git clone https://github.com/kullaniciadi/process-ghost`
 2. Install dependencies: `pip install -r requirements.txt`
 3. Run with root privileges: `sudo -E python3 gui.py`
 
-## ⚠️ Disclaimer
+## Disclaimer
 This tool is for educational and authorized security testing purposes only.
